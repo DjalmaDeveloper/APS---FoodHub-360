@@ -56,6 +56,10 @@ public class Pedido {
         return itens;
     }
 
+    public void setItens(List<String> itens) {
+        this.itens = itens;
+    }
+
     public Double getValor() {
         return valor;
     }
