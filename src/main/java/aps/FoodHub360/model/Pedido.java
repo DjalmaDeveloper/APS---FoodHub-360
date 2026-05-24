@@ -16,9 +16,6 @@ public class Pedido {
 
     private String cliente;
 
-    @ElementCollection
-    private List<String> itens = new ArrayList<>();
-
     private Double valor;
 
     @Enumerated(EnumType.STRING)
@@ -34,10 +31,23 @@ public class Pedido {
 
     private LocalDateTime horarioConclusao;
 
+    @OneToMany(
+            mappedBy = "pedido",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<ItemPedido> itens = new ArrayList<>();
+
     public Pedido(){}
 
     public boolean isPrioridadeAlta(){
         return prioridade == PrioridadePedido.ALTA;
+    }
+
+    public Double calcularValorTotal(){
+
+        return itens.stream()
+                .mapToDouble(ItemPedido::getSubtotal)
+                .sum();
     }
 
     public Long getId() {
@@ -52,11 +62,11 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public List<String> getItens() {
+    public List<ItemPedido> getItens() {
         return itens;
     }
 
-    public void setItens(List<String> itens) {
+    public void setItens(List<ItemPedido> itens) {
         this.itens = itens;
     }
 

@@ -1,9 +1,6 @@
 package aps.FoodHub360.controller;
 
-import aps.FoodHub360.model.CanalPedido;
-import aps.FoodHub360.model.Pedido;
-import aps.FoodHub360.model.PrioridadePedido;
-import aps.FoodHub360.model.StatusPedido;
+import aps.FoodHub360.model.*;
 import aps.FoodHub360.service.PedidoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,24 +57,30 @@ public class PedidoController {
 
     @PostMapping("/salvar")
     public String salvar(@RequestParam String cliente,
-                         @RequestParam String itens,
-                         @RequestParam Double valor,
+                         @RequestParam String itemNome,
+                         @RequestParam Integer quantidade,
+                         @RequestParam Double precoUnitario,
                          @RequestParam CanalPedido canal,
                          @RequestParam PrioridadePedido prioridade) {
 
         Pedido pedido = new Pedido();
 
         pedido.setCliente(cliente);
-
-        pedido.setItens(
-                java.util.Arrays.asList(
-                        itens.split(",")
-                )
-        );
-
-        pedido.setValor(valor);
         pedido.setCanal(canal);
         pedido.setPrioridade(prioridade);
+
+        ItemPedido item = new  ItemPedido();
+
+        item.setNome(itemNome);
+        item.setQuantidade(quantidade);
+        item.setPrecoUnitario(precoUnitario);
+        item.setPedido(pedido);
+
+        pedido.getItens().add(item);
+
+        pedido.setValor(
+                pedido.calcularValorTotal()
+        );
 
         service.salvar(pedido);
 

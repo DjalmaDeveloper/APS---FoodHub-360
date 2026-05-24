@@ -27,23 +27,38 @@
 
     <div class="mb-3">
 
-        <label>Itens</label>
+        <label>Nome do Item</label>
 
         <input type="text"
-                name="itens"
+                name="itemNome"
                 class="form-control"
-                placeholder="X-Burger, Refrigerante">
+                placeholder="X-Burger"
+                required>
 
     </div>
 
     <div class="mb-3">
 
-        <label>Valor</label>
+        <label>Quantidade</label>
+
+        <input type="number"
+               name="quantidade"
+               class="form-control"
+               min="1"
+               required>
+
+    </div>
+
+    <div class="mb-3">
+
+        <label>Preço Unitário</label>
 
         <input type="number"
                 step="0.01"
-                name="valor"
-                class="form-control">
+                name="precoUnitario"
+                class="form-control"
+                placeholder="0.00"
+                required>
 
     </div>
 

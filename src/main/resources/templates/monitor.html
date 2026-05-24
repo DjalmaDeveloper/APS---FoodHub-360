@@ -97,7 +97,30 @@
 
         <td th:text="${pedido.cliente}"></td>
 
-        <td th:text="${pedido.itens}"></td>
+        <td>
+
+            <ul class="list-unstyled">
+
+                <li th:each="item : ${pedido.itens}">
+
+                    <strong th:text="${item.nome}"></strong>
+
+                    |
+                    Qtd:
+                    <span th:text="${item.quantidade}"></span>
+
+                    |
+                    R$
+                    <span th:text="${item.precoUnitario}"></span>
+
+                    | Subtotal:
+                    <span th:text="${item.subtotal}"></span>
+
+                </li>
+
+            </ul>
+
+        </td>
 
         <td th:text="${pedido.canal}"></td>
 
